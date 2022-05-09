@@ -1,12 +1,48 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View,SafeAreaView} from 'react-native';
 import Signin from './components/Signin/Signin';
+import Home from './components/Home.js/Home';
+import Register from './components/Signin/Register';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 
 export default function App() {
+  const [isLoggedIn, setStatus] = useState(false)
+  const Stack = createNativeStackNavigator()
+
+  const login = () => {
+    console.log('this')
+    setView(<Home logout={() => logout()}/>)
+  }
+
+  const logout= () => {
+    setView(<Signin login={() => login()}/>)
+  }
+
   return (
-    <View style={styles.container}>
-      <Signin/>
-    </View>
+    <SafeAreaView style={{flex: 1}}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen 
+              name="Home" 
+              component={Home} 
+              options={{
+                headerShown: false
+              }}
+            />
+            <Stack.Screen 
+              name="signin" 
+              component={Signin} 
+              options={{headerShown: false}}
+            />
+            <Stack.Screen 
+              name="Register" 
+              component={Register} 
+            />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 

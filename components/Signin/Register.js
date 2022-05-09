@@ -1,27 +1,25 @@
 import React, {useState, useEffect} from 'react'
 import {View, Text, TouchableOpacity, TextInput,StyleSheet} from 'react-native'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-const Signin = ({navigation}) => {
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+const Register = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [showSignInError, setShowSignInError] = useState(false)
+    const [username, setUsername] = useState('')
 
-    const handleSingin =  (props) => {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        navigation.navigate('Home')
-        setShowSignInError(false)
-        // ...
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setShowSignInError(true)
-    });
+    const handleRegistry= () => {
+        const auth = getAuth();
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                navigation.goBack()
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
     }
 
     return( 
@@ -29,22 +27,26 @@ const Signin = ({navigation}) => {
             <Text>Sign In</Text>
             <TextInput
                 style={{borderColor: 'black', borderWidth: 0.3, width: 200, marginTop: 10, height:25,borderRadius: 10, padding: 5}}
+                placeholder='username'
+                onChangeText={setUsername}
+                value={username}
+            />
+            <TextInput
+                style={{borderColor: 'black', borderWidth: 0.3, width: 200, marginTop: 10, height:25,borderRadius: 10, padding: 5}}
+                placeholder='email'
                 onChangeText={setEmail}
                 value={email}
             />
             <TextInput
                 style={{borderColor: 'black', borderWidth: 0.3, width: 200, marginTop: 10, height:25, borderRadius: 10, padding: 5}}
+                placeholder='password'            
                 secureTextEntry={true}
                 onChangeText={setPassword}
                 value={password}
             />
-            <TouchableOpacity onPress={handleSingin} style={styles.singinButton}>
-                <Text>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.singinButton}>
+            <TouchableOpacity onPress={handleRegistry} style={styles.singinButton}>
                 <Text>Register</Text>
             </TouchableOpacity>
-            <Text style={!showSignInError ? {opacity: 0} : {color: 'red'}}>wrong email or password'</Text>
         </View>
     )
 }
@@ -59,4 +61,4 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
 })
-export default Signin
+export default Register
