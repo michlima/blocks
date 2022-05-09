@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {View, Text, TouchableOpacity, TextInput,StyleSheet} from 'react-native'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../firebase';
 const Register = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
 
     const handleRegistry= () => {
-        const auth = getAuth();
+        console.log('handling')
             createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 

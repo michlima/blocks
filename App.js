@@ -24,17 +24,17 @@ export default function App() {
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen 
+            <Stack.Screen 
+              name="signin" 
+              component={Signin} 
+              options={{headerShown: false}}
+            />
+            <Stack.Screen 
               name="Home" 
               component={Home} 
               options={{
                 headerShown: false
               }}
-            />
-            <Stack.Screen 
-              name="signin" 
-              component={Signin} 
-              options={{headerShown: false}}
             />
             <Stack.Screen 
               name="Register" 

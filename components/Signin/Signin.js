@@ -1,27 +1,30 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {View, Text, TouchableOpacity, TextInput,StyleSheet} from 'react-native'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../../firebase';
 const Signin = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showSignInError, setShowSignInError] = useState(false)
 
     const handleSingin =  (props) => {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        navigation.navigate('Home')
-        setShowSignInError(false)
-        // ...
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setShowSignInError(true)
-    });
+    //     console.log('handleing Sign in....')
+    // signInWithEmailAndPassword(auth, email, password)
+    // .then((userCredential) => {
+    //     console.log('all is FINE')
+    //     console.log(userCredential)
+    //     const user = userCredential.user;
+    //     navigation.navigate('Home')
+    //     setShowSignInError(false)
+    //     console.log(user.email)
+    //     // ...
+    // })
+    // .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     setShowSignInError(true)
+    // });
+    navigation.navigate('Home')
     }
 
     return( 
