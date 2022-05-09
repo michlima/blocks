@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View,SafeAreaView} from 'react-native';
 import Signin from './components/Signin/Signin';
-import Home from './components/Home.js/Home';
+import HomeNav from './components/Home.js/HomeNav';
 import Register from './components/Signin/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -30,8 +30,8 @@ export default function App() {
               options={{headerShown: false}}
             />
             <Stack.Screen 
-              name="Home" 
-              component={Home} 
+              name="HomeNav" 
+              component={HomeNav} 
               options={{
                 headerShown: false
               }}
