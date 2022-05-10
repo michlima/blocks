@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View,SafeAreaView} from 'react-native';
 import Signin from './components/Signin/Signin';
-import HomeNav from './components/Home.js/HomeNav';
+import HomeNav from './components/Home/HomeNav';
 import Register from './components/Signin/Register';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
