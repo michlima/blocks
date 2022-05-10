@@ -1,26 +1,42 @@
 import React, {useState} from 'react'
 import {View, Text, TouchableOpacity, TextInput,StyleSheet} from 'react-native'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
+import { getDatabase } from "firebase/database";
+import { doc, setDoc } from "firebase/firestore"; 
+
+
 const Register = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState('')
 
+    let userData = {
+        email: email,
+        username: username,
+        coms: {},
+        isOnline: false,
+        messageIds: {},
+    }
+
     const handleRegistry= () => {
+        let user;
         console.log('handling')
-            createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                navigation.goBack()
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-            });
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            console.log('singning in')
+            user = userCredential.user;
+            navigation.goBack()
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode)
+            console.log(errorMessage)
+            setRegistered(false)
+            // ..
+        });
+        setDoc(doc(db, "users", `${user.uid}`), userData); 
     }
 
     return( 
