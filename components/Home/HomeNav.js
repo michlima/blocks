@@ -1,11 +1,9 @@
-import React, {useState, useEffect} from 'react'
-import {View, Text, TouchableOpacity} from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Home from './Home'
 import FocusBlock from './FocusBlock/FocusBlock';
 import FocusPost from './FocusBlock/FocusPost';
-const HomeNav = ({navigation}) => {
+const HomeNav = ({navigation, route}) => {
     const Stack = createNativeStackNavigator()
 
     const logOut= () => {
@@ -16,7 +14,8 @@ const HomeNav = ({navigation}) => {
         <Stack.Navigator>
             <Stack.Screen 
                 name="Home" 
-                component={Home} 
+                component={Home}
+                initialParams={route.params}
             />
             <Stack.Screen 
                 name={"FocusBlock" }
@@ -30,7 +29,8 @@ const HomeNav = ({navigation}) => {
                 name='FocusPost'
                 component={FocusPost}
                 options={{
-                    presentation: 'modal'
+                    presentation: 'modal',
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>
